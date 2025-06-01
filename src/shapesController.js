@@ -3,24 +3,28 @@ const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
-let shapes = []; // In-memory data store
+let boards = {}; // Stores shapes per boardId
 
-// GET all shapes
+// Get shapes for a specific board
 router.get('/', (req, res) => {
-  res.json(shapes);
+  const boardId = req.query.boardId || 'default';
+  res.json(boards[boardId] || []);
 });
 
-// POST a new shape
+// Post shape to a specific board
 router.post('/', (req, res) => {
+  const boardId = req.query.boardId || 'default';
   const shape = { id: uuidv4(), ...req.body };
-  shapes.push(shape);
+
+  if (!boards[boardId]) boards[boardId] = [];
+  boards[boardId].push(shape);
+
   res.status(201).json(shape);
 });
 
-// DELETE a shape by ID
 router.delete('/:id', (req, res) => {
-  const { id } = req.params;
-  shapes = shapes.filter(shape => shape.id !== id);
+  const boardId = req.query.boardId || 'default';
+  boards[boardId] = (boards[boardId] || []).filter(s => s.id !== req.params.id);
   res.status(204).send();
 });
 
