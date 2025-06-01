@@ -11,5 +11,5 @@ app.use(express.json());
 app.use('/api/shapes', shapesController);
 
 app.listen(PORT, () => {
-  console.log(`CAD API server running on http://localhost:${PORT}`);
+  console.log(`✅ Backend running on http://localhost:${PORT}`);
 });
