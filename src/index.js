@@ -10,6 +10,10 @@ app.use(express.json());
 
 app.use('/api/shapes', shapesController);
 
+app.get('/', (req, res) => {
+  res.send('CAD backend is running');
+});
+
 app.listen(PORT, () => {
-  console.log(`✅ Backend running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });

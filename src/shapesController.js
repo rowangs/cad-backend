@@ -2,7 +2,7 @@ const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
-let boards = {}; // Store shapes by boardId
+let boards = {};
 
 router.get('/', (req, res) => {
   const boardId = req.query.boardId || 'default';
