@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
   res.send('CAD backend is running');
 });
 
+app.use((req, res) => {
+  res.status(404).send('Route not found');
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
