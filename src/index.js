@@ -5,9 +5,14 @@ const shapesController = require('./shapesController');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors({
-  origin: '*'
-}));
+const corsOptions = {
+  origin: 'https://rowangs.github.io',
+  methods: ['GET', 'POST', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 
