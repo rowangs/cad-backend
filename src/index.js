@@ -5,21 +5,16 @@ const shapesController = require('./shapesController');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const corsOptions = {
-  origin: 'https://rowangs.github.io',
-  methods: ['GET', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-};
-
-app.use(cors(corsOptions));
-
+// ✅ CORS FIX — this allows any domain (for testing)
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(express.json());
-
 app.use('/api/shapes', shapesController);
 
 app.get('/', (req, res) => {
-  res.send('✅ CAD Backend is running');
+  res.send('Backend is running');
 });
 
 app.listen(PORT, () => {
