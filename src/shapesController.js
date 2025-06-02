@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-// Store shapes per board
+// Store shapes in memory per board
 const boards = {};
 
-// GET shapes for a board
+// GET all shapes for a board
 router.get('/', (req, res) => {
   const boardId = req.query.boardId || 'default';
-  const shapes = boards[boardId] || [];
-  res.json(shapes);
+  res.json(boards[boardId] || []);
 });
 
 // POST a new shape
@@ -22,17 +21,17 @@ router.post('/', (req, res) => {
   res.status(201).json(shape);
 });
 
-// DELETE a shape by ID
+// DELETE a specific shape (Undo)
 router.delete('/:id', (req, res) => {
   const boardId = req.query.boardId || 'default';
   const shapeId = req.params.id;
   if (!boards[boardId]) return res.status(404).send();
 
-  boards[boardId] = boards[boardId].filter(s => s.id !== shapeId);
+  boards[boardId] = boards[boardId].filter(shape => shape.id !== shapeId);
   res.status(204).send();
 });
 
-// DELETE all shapes in a board
+// DELETE all shapes (Clear board)
 router.delete('/', (req, res) => {
   const boardId = req.query.boardId || 'default';
   boards[boardId] = [];

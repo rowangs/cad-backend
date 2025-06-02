@@ -11,11 +11,7 @@ app.use(express.json());
 app.use('/api/shapes', shapesController);
 
 app.get('/', (req, res) => {
-  res.send('CAD backend is running');
-});
-
-app.use((req, res) => {
-  res.status(404).send('Route not found');
+  res.send('✅ CAD Backend is running');
 });
 
 app.listen(PORT, () => {
